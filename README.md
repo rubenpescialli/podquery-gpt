@@ -110,8 +110,17 @@ Paste [this](./configuration/instructions.txt) block of text into the _Instructi
 - Click _Create_ and select _Only me_.
 
 ## Usage and Examples
-Upon your first request, the GPT will ask for permission to connect to `listen-api.listennotes.com`. Here you can review the query that will be utilised for your search. Click _Allow_ (or _Always Allow_ if you don't want to see this at every request).
+Upon your first request, the GPT will ask for permission to connect to `listen-api.listennotes.com`. Here you can review the query that will be utilised for your search.
 
 ![Example: first request](./images/query_example.png)
 
-A
+Click _Allow_ (or _Always Allow_ if you don't want to see this at every request). At this point, the three episodes will be returned, together with two links:
+
+- The first one redirects you to the Listen Notes episode page (where the specific Spotify, Apple Podcasts, or other links can be found).
+- The other allows you to listen or download the episode directly from your browser.
+
+![Example 1](./images/result_example_1.png)
+
+---
+
+You can search for 
