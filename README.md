@@ -5,7 +5,7 @@ Podcasts are a good medium for passive learning, especially during dead times su
 
 So I made a custom GPT to automate this process. It transforms a user intent (e.g., "I want to learn about X") into a micro-curriculum of specific podcast episodes. It is made to filter out casual banter and surface only the most informative episodes, hopefully saving a good chunk of research time.
 
-### How it work
+### How it works
 - Before calling the API, it converts the user's natural language prompt into exact phrase matches to formulate a query suitable for Listen Notes.
 - Executes a GET /search request to the Listen Notes API (with a few [constraints](#searching-constraints)).
 - Parses the JSON payload to analyse the resulting episode descriptions and filters them to select the three most relevant episodes.
