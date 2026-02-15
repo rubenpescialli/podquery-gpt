@@ -1,0 +1,77 @@
+openapi: 3.1.0
+info:
+  title: Listen Notes API
+  description: Search for podcast episodes to build educational curriculums.
+  version: 2.0.0
+servers:
+  - url: https://listen-api.listennotes.com/api/v2
+paths:
+  /search:
+    get:
+      operationId: searchPodcasts
+      summary: Execute a full-text search to retrieve specific podcast episodes.
+      parameters:
+        - name: q
+          in: query
+          description: The core educational subject to search for.
+          required: true
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: The type of content to search. Must be set to "episode".
+          required: true
+          schema:
+            type: string
+            default: "episode"
+        - name: len_min
+          in: query
+          description: Minimum audio length in minutes. Must strictly be set to 15.
+          required: true
+          schema:
+            type: integer
+            default: 15
+        - name: only_in
+          in: query
+          description: A comma-separated list of fields to search. Must be set to "title,description".
+          required: true
+          schema:
+            type: string
+            default: "title,description"
+        - name: language
+          in: query
+          description: Target language of the podcast content.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful search response containing the JSON payload of episodes.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    description: The number of search results returned.
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        title_original:
+                          type: string
+                        description_original:
+                          type: string
+                        audio:
+                          type: string
+                        audio_length_sec:
+                          type: integer
+                        listennotes_url:
+                          type: string
+                        podcast:
+                          type: object
+                          properties:
+                            title_original:
+                              type: string
