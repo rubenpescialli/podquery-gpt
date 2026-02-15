@@ -5,7 +5,7 @@ Podcasts are a good medium for passive learning, especially during dead times su
 
 So I made a custom GPT to automate this process. It transforms a user intent (e.g., "I want to learn about X") into a micro-curriculum of specific podcast episodes. It is made to filter out casual banter and surface only the most informative episodes, hopefully saving a good chunk of research time.
 
-### How does it works
+### How it work
 - Before calling the API, it converts the user's natural language prompt into exact phrase matches to formulate a query suitable for Listen Notes.
 - Executes a GET /search request to the Listen Notes API (with a few [constraints](#searching-constraints)).
 - Parses the JSON payload to analyse the resulting episode descriptions and filters them to select the three most relevant episodes.
@@ -38,7 +38,7 @@ podquery-gpt
 
 ## Setup Guide
 ### 1. Obtain your Listen Notes API Key
-Go to the [Listen Notes API Page](https://www.listennotes.com/api/) and subscribe to the free plan. You will get 50 requests per month (the landing page says 300, but you'll see it is actually 50), which is more than enough for a personal use of this tool.
+Go to the [Listen Notes API Page](https://www.listennotes.com/api/) and subscribe to the free plan. You will get 50 requests per month (the landing page says 300, but you'll see it is actually 50), which is more than enough for personal use of this tool.
 
 Listen Notes will ask you to provide context about how and for which platforms you're going to use their service. They do it primarily to prevent scraping. If you want to save time, you can copy and paste these descriptions:
 
@@ -57,7 +57,7 @@ Primarily:
 ### 2. Initialise the custom GPT
 - Create a new GPT using the _Configure_ tab.
 - Disable _Web Search, Canvas, Image Generation_ and _Code Interpreter & Data Analysis_: leaving these enabled can cause the model to get "distracted" and, for instance, attempt web searches instead of strictly using your API.
-- I recommend selecting _GPT-5.2 Instant_ as the default model: this tool does not require deep problem-solving capabilities; it simply needs adherence to a YAML schema. We also wouldn't like a 10 to 30-second delay or the model to second-guess our instructions.
+- I recommend selecting _GPT-5.2 Instant_ as the default model: this tool does not require deep problem-solving capabilities; it simply needs adherence to a YAML schema. In addition, I wouldn't like a 10 to 30-second delay or the model to second-guess our instructions.
 
 ### 3. Define the instructions
 Paste [this](./configuration/instructions.txt) block of text into the _Instructions_ field.
@@ -69,8 +69,8 @@ Paste [this](./configuration/instructions.txt) block of text into the _Instructi
   
   When designing the instructions to convert the raw user prompt into a keyword-based query, I noticed a "precision vs recall" trade-off.
   
-  - If a user provides verbose, natural-language descriptions with lists of synonyms or related concepts, the API search fails. E.g., to the prompt: _"I want to learn more about the world of AI, machine learning and deep learning"_, the GPT would try to find episodes containing every single one of those terms in the title/description. This resulted in too few search results.
-  - Conversely, I found that if the GPT summarised too much, it stripped away specific topics the user actually cared about. E.g., if a user asks: _"Give me episodes on servant leadership for founders in early-stage startups"_, an oversimplifying agent queried just for _"servant leadership"_, returning generic, corporate-leaning advice.
+  - If a user provided verbose, natural-language descriptions with lists of synonyms or related concepts, sometimes the API search failed. E.g., to the prompt: _"I want to learn more about the world of AI, machine learning and deep learning"_, the GPT tried to find episodes containing every single one of those terms in the title/description. This resulted in too few search results.
+  - Conversely, I found that if the GPT summarised too much, it stripped away specific topics the user actually cared about. E.g., if a user asked: _"Give me episodes on servant leadership for founders in early-stage startups"_, an oversimplifying agent queried just for _"servant leadership"_, returning generic, corporate-leaning advice.
   
   I tuned this instruction set to strike a balance between these aspects.
 
@@ -81,7 +81,7 @@ Paste [this](./configuration/instructions.txt) block of text into the _Instructi
 <summary><span id="searching-constraints">Searching (constraints)</span></summary>
 <blockquote>
   
-  I implemented some constraints to filter out low-value content directly during its retrieval.
+  I implemented some constraints to filter out low-value content before its retrieval.
 
   - `type`: "episode" - Searching for "podcasts" (shows) is too broad; I wanted self-contained "lessons" on a topic, not a subscription to an entire series.
   - `len_min`: 15 - Otherwise, many results would be 5-minute trailers or news bites. A 15-minute floor ensures enough depth to provide educational value.
@@ -114,17 +114,17 @@ Paste [this](./configuration/instructions.txt) block of text into the _Instructi
 <summary>Mandatory attribution</summary>
 <blockquote>
   
-  I put this since in the Listen Notes API documentation, it is mentioned how any application that displays data fetched from the Listen Notes API must show the "Powered by Listen Notes" logo on the screen.
+  I put this since, in the Listen Notes API documentation, it is mentioned how any application that displays data fetched from the Listen Notes API must show the "Powered by Listen Notes" logo on the screen.
 
 <blockquote>
 </details>
 
 ### 4. Configure the searchPodcasts action and save
 - At the bottom of the _Configure_ tab, click _Create new action_.
-- In the _Schema_ box, paste the following [YAML OpenAPI specification](#./configuration/openapi_schema.yaml). This tells the GPT exactly how to format the search request to Listen Notes.
-- In the _Authentication_ field, select _API Key_ as _Authentication Type_ and paste your [Listen Notes API Key](#1.-obtain-your-listen-notes-api-key) below.
+- In the _Schema_ box, paste the following [YAML OpenAPI specification](./configuration/openapi_schema.yaml). This tells the GPT exactly how to format the search request to Listen Notes.
+- In the _Authentication_ field, select _API Key_ as _Authentication Type_ and paste your [Listen Notes API Key](#1-obtain-your-listen-notes-api-key) below.
 - As _Auth Type_ select _Custom_ and paste `X-ListenAPI-Key` in the _Custom Header Name_ field.
-- If asked for a _Privacy policy_ paste `https://www.listennotes.com/privacy/`, even if, for private GPTs, this is usually not required.
+- If asked for a privacy policy, paste `https://www.listennotes.com/privacy/`, even if, for private GPTs, this is usually not required.
 
 - Click _Create_ and select _Only me_.
 
@@ -135,7 +135,7 @@ Upon your first request, the GPT will ask for permission to connect to `listen-a
 
 Click _Allow_ (or _Always Allow_ if you don't want to see this at every request). At this point, the three most relevant episodes will be returned, together with two links:
 
-- The first one redirects you to the Listen Notes episode page (where the specific Spotify, Apple Podcasts, or other links can be found).
+- The first one redirects you to the Listen Notes episode page (where the specific Spotify, Apple Podcasts, or other links to listen can be found).
 - The other allows you to listen to or download the episode directly from your browser.
 
 ![Example 1](./images/result_example_1.png)
