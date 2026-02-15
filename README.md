@@ -7,14 +7,14 @@ So I made a custom GPT to automate this discovery process. It transforms a user 
 
 ### How does it works
 - Before calling the API, it converts the user's natural language prompt into exact phrase matches to formulate a query suitable for Listen Notes.
-- Executes a GET /search request to the Listen Notes API (with a few constraints).
+- Executes a GET /search request to the Listen Notes API (with a few [constraints](#searching-constraints)).
 - Parses the JSON payload to analyse the resulting episode descriptions and filters them to select the three highest-signal episodes.
 - It arranges them into a structured order, justifying their selection and providing links for listening.
 
 ## Table of Contents
 
 - [Project Tree]()
-- [AAA]()
+- [A]()
 
 ## Setup guide
 ### 1. Obtain your Listen Notes API Key
@@ -40,7 +40,53 @@ Primarily:
 - I recommend selecting _GPT-5.2 Instant_ as the default model: this tool does not require deep problem-solving capabilities; it simply needs adherence to a YAML schema. We also don't want a 10 to 30-seconds delay or the model to second-guess our instructions.
 
 ### 3. Define the instructions
-Paste this block of text into the _Instructions_ field.
+Paste [this](./configuration/instructions.txt) block of text into the _Instructions_ field.
 
 #### Brief explanation on the instructions I gave
-- **Step 1: Query Reformulation & Optimisation**:  
+<details>
+<summary>Formulating the query</summary>
+<blockquote>
+  
+  When designing the instructions to convert the raw user prompt into a keyword-based query, I noticed a "precision vs recall" trade-off.
+  
+  - If a user provides verbose, natural-language descriptions with lists of synonyms or related concepts, the API search failed. E.g., to the prompt: _"I want to learn more about the world of AI, machine learning and deep learning"_, the GPT would try to find episodes containing every single one of those terms in the title/description. This resulted in too few search results.
+  - Conversely, I found that if the GPT summarized too much, it stripped away the specific topics the user actually cared about. E.g., if a user asks: _"Give me episodes on servant leadership for founders in early-stage startups"_, an over-simplifying agent quried just for _"servant leadership"_, returning generic, corporate-leaning advice.
+  
+  I tuned this instruction set so as to strike a balance between these aspects.
+
+<blockquote>
+</details>
+
+<details>
+<summary><span id="searching-constraints">Searching (constraints)</span></summary>
+<blockquote>
+  
+  I implemented some constraints to filter out low-value content directly during its retrieval.
+
+  - `type`: "episode" - Searching for "podcasts" (shows) is too broad; I wanted self-contained "lessons" on a topic, not a subscription to an entire series.
+  - `len_min`: 15 - Otherwise many results would be 5-minute trailers or news bites. A 15-minute floor ensures enough depth to provide educational value.
+  - `only_in`: "title,description" - Reduces false positives by excluding full transcripts from the search (a keyword might be mentioned during a 1-hour conversation without being the actual focus of the episode.)
+  
+<blockquote>
+</details>
+
+<details>
+<summary>Why returning only three episodes?</summary>
+<blockquote>
+  
+  - If an AI returns a list of ten links, it is merely a search engine forcing the user to do additional curation work themselves.
+  - I wanted to prevent decision fatigue by restricting the output to just a few episodes.
+
+<blockquote>
+</details>
+
+<details>
+<summary>Running time calculation</summary>
+<blockquote>
+  
+  - A user's decision to listen is often dictated by their available time, so I wanted to show durations upfront.
+  - Without the code interpreter enabled, LLMs often attempt to "reason" simple arithmetic based on likelihood rather than logic. Since this led to hallucinations and rounding errors, I assigned a strict order of operations that forces the model to act like a deterministic algorithm.
+
+<blockquote>
+</details>
+
