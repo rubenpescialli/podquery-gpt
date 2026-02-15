@@ -36,7 +36,7 @@ Primarily:
 
 ### 2. Initialise the custom GPT
 - Create a new GPT using the _Configure_ tab.
-- Disable _Web Search, Canvas, Image Generation and Code Interpreter & Data Analysis_: leaving these enabled can cause the model to get "distracted" and, for instance, attempt web searches instead of strictly using your API.
+- Disable _Web Search, Canvas, Image Generation_ and _Code Interpreter & Data Analysis_: leaving these enabled can cause the model to get "distracted" and, for instance, attempt web searches instead of strictly using your API.
 - I recommend selecting _GPT-5.2 Instant_ as the default model: this tool does not require deep problem-solving capabilities; it simply needs adherence to a YAML schema. We also don't want a 10 to 30-seconds delay or the model to second-guess our instructions.
 
 ### 3. Define the instructions
@@ -101,4 +101,15 @@ Paste [this](./configuration/instructions.txt) block of text into the _Instructi
 
 ### 4. Configure the searchPodcasts action
 - At the bottom of the _Configure_ tab, click _Create new action_.
-- In the _Schema_ box, paste the following YAML OpenAPI specification.
+- In the _Schema_ box, paste the following [YAML OpenAPI specification](#./configuration/openapi_schema.yaml). This tells the GPT exactly how to format the search request to Listen Notes.
+- In the _Authentication_ field, select _API Key_ as _Authentication Type_ and paste your [Listen Notes API Key](#1.-obtain-your-listen-notes-api-key) below.
+- As _Auth Type_ select _Custom_ and paste `X-ListenAPI-Key` in the _Custom Header Name_ field.
+- If asked for a _Privacy policy_ paste `https://www.listennotes.com/privacy/`, even if for private GPTs, this is usually not required.
+
+### 5. Save
+- Click _Create_ and select _Only me_.
+
+## Usage and Examples
+Upon your first request, the GPT will ask for permission to connect to `listen-api.listennotes.com`. Here you can review the query that will be utilised for your search. Click _Allow_ (or _Always Allow_ if you don't want to see this at every request).
+
+
