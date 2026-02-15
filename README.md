@@ -119,8 +119,6 @@ Click _Allow_ (or _Always Allow_ if you don't want to see this at every request)
 - The first one redirects you to the Listen Notes episode page (where the specific Spotify, Apple Podcasts, or other links can be found).
 - The other allows you to listen or download the episode directly from your browser.
 
-![Example 1](./images/result_example_1.png)
-
 ---
 
 You can also search for specific topics at the intersection of more domains.  
