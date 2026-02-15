@@ -103,8 +103,8 @@ Paste [this](./configuration/instructions.txt) block of text into the _Instructi
 <details>
 <summary>Curriculum construction</summary>
 <blockquote>
-    
-    If the user queries a highly obscure or hyper-specific topic, the Listen Notes API returns an empty JSON array (since no episodes meet the search criteria). When the AI, expecting a populated list of episodes, receives an empty array, it will likely attempt to satisfy the prompt by hallucinating a curriculum based on its pre-training data. Therefore, I implemented part of these instructions so that, in these cases, the model is forced to admit it found nothing rather than trying to bluff its way through.
+    If the user queries a highly obscure or hyper-specific topic, the Listen Notes API returns an empty JSON array (since no episodes meet the search criteria). When the AI, expecting a populated list of episodes, receives an empty array, it will likely attempt to satisfy the prompt by hallucinating a curriculum based on its pre-training data. 
+    Therefore, I implemented part of these instructions so that, in these cases, the model is forced to admit it found nothing rather than trying to bluff its way through.
   
 <blockquote>
 </details>
