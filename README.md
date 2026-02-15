@@ -112,4 +112,6 @@ Paste [this](./configuration/instructions.txt) block of text into the _Instructi
 ## Usage and Examples
 Upon your first request, the GPT will ask for permission to connect to `listen-api.listennotes.com`. Here you can review the query that will be utilised for your search. Click _Allow_ (or _Always Allow_ if you don't want to see this at every request).
 
+![Example: first request](./images/query_example.png)
 
+A
