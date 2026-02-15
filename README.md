@@ -16,7 +16,7 @@ So I made a custom GPT to automate this discovery process. It transforms a user 
 - [Project Tree]()
 - [A]()
 
-## Setup guide
+## Setup Guide
 ### 1. Obtain your Listen Notes API Key
 Go to the [Listen Notes API Page](https://www.listennotes.com/api/) and subscribe to the free plan. You will get 50 requests per month (the landing page says 300, but you'll see it is actually 50), which I think is more than enough for this tool.
 
@@ -90,3 +90,15 @@ Paste [this](./configuration/instructions.txt) block of text into the _Instructi
 <blockquote>
 </details>
 
+<details>
+<summary>Mandatory attribution</summary>
+<blockquote>
+  
+  I put this since in the Listen Notes API documentation, it is mentioned how any application that displays data fetched from the Listen API must show the "Powered by Listen Notes" logo on the screen.
+
+<blockquote>
+</details>
+
+### 4. Configure the searchPodcasts action
+- At the bottom of the _Configure_ tab, click _Create new action_.
+- In the _Schema_ box, paste the following YAML OpenAPI specification.
