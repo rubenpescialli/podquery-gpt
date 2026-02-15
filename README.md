@@ -123,4 +123,6 @@ Click _Allow_ (or _Always Allow_ if you don't want to see this at every request)
 
 ---
 
-You can search for 
+You can also search for specific topics at the intersection of more domains.  
+
+![Example 2](./images/result_example_2.png)
